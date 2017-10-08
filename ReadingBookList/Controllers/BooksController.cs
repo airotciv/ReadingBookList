@@ -149,20 +149,24 @@ namespace ReadingBookList.Controllers
         /// <returns>typeof(View(book))</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ISBN,Title,Mark")] Book book)
+        public ActionResult Edit([Bind(Include = "Id,ISBN,Title,Mark,UserId,AddedDate")] Book book)
         {
             if (ModelState.IsValid)
             {
                 var userIdQuery = db.Users.Where(u => u.Email == User.Identity.Name).Select(u => u.Id);
                 var userId = userIdQuery.FirstOrDefault();
-                book.ModifiedDate = DateTime.Now;
-                book.UserId = userId;
-                book.AddedDate = db.Books.Find(book.Id).AddedDate;
-                db.Entry(book).State = EntityState.Modified;
+                Book bookToUpdate = db.Books.Find(book.Id);
+
+                bookToUpdate.ISBN = book.ISBN;
+                bookToUpdate.Title = book.Title;
+                bookToUpdate.Mark = book.Mark;
+                bookToUpdate.ModifiedDate = DateTime.Now;
+                db.Entry(bookToUpdate).State = EntityState.Modified;
                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(book);
         }
 
