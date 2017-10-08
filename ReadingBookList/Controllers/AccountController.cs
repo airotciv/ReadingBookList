@@ -18,16 +18,28 @@ namespace ReadingBookList.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        /// <summary>
+        /// AccountController constructor
+        /// </summary>
         public AccountController()
         {
         }
 
+        /// <summary>
+        /// AccountController overriding constructor with given ApplicationUserManager and ApplicationSignInManager
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
+
+        /// <summary>
+        /// Getter and Setter of ApplicationSignInManager property
+        /// </summary>
         public ApplicationSignInManager SignInManager
         {
             get
@@ -40,6 +52,9 @@ namespace ReadingBookList.Controllers
             }
         }
 
+        /// <summary>
+        /// Getter and setter of ApplicationUserManager property
+        /// </summary>
         public ApplicationUserManager UserManager
         {
             get
@@ -52,8 +67,12 @@ namespace ReadingBookList.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
+        /// <summary>
+        /// GET: /Account/
+        /// Gets the login page
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns>typeof(View)</returns>
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -61,8 +80,15 @@ namespace ReadingBookList.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
+        /// <summary>
+        /// POST: /Account/Login
+        /// Used for user to login
+        /// It returns to the Books Index if successfully signed in
+        /// returns failure message if login credentials are invalid
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -92,8 +118,14 @@ namespace ReadingBookList.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyCode
+  
+        /// <summary>
+        /// GET: /Account/VerifyCode
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="returnUrl"></param>
+        /// <param name="rememberMe"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
@@ -105,8 +137,11 @@ namespace ReadingBookList.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/VerifyCode
+        /// <summary>
+        /// POST: /Account/VerifyCode
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -135,16 +170,23 @@ namespace ReadingBookList.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
+        /// <summary>
+        /// GET: /Account/Register
+        /// Gets the Register Page
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
+        /// <summary>
+        /// POST: /Account/Register
+        /// Used to Register a user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>typeof(View(model))</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -173,8 +215,12 @@ namespace ReadingBookList.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ConfirmEmail
+        /// <summary>
+        /// GET: /Account/ConfirmEmail
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -186,16 +232,20 @@ namespace ReadingBookList.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        //
-        // GET: /Account/ForgotPassword
+        /// <summary>
+        /// GET: /Account/ForgotPassword
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
+        /// <summary>
+        /// POST: /Account/ForgotPassword
+        /// </summary>
+        /// <param name="model"></param>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -222,24 +272,32 @@ namespace ReadingBookList.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
+        /// <summary>
+        ///  GET: /Account/ForgotPasswordConfirmation
+        /// </summary>
+        /// <returns></returns>
+         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
+        /// <summary>
+        ///  GET: /Account/ResetPassword
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
         }
 
-        //
-        // POST: /Account/ResetPassword
+        /// <summary>
+        /// POST: /Account/ResetPassword
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -264,16 +322,23 @@ namespace ReadingBookList.Controllers
             return View();
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
+
+        /// <summary>
+        /// GET: /Account/ResetPasswordConfirmation
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ExternalLogin
+        /// <summary>
+        /// POST: /Account/ExternalLogin
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -283,8 +348,12 @@ namespace ReadingBookList.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/SendCode
+        /// <summary>
+        /// GET: /Account/SendCode
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <param name="rememberMe"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
@@ -298,8 +367,12 @@ namespace ReadingBookList.Controllers
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/SendCode
+
+        /// <summary>
+        /// POST: /Account/SendCode
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -318,8 +391,12 @@ namespace ReadingBookList.Controllers
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
+
+        /// <summary>
+        /// GET: /Account/ExternalLoginCallback
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
@@ -386,8 +463,11 @@ namespace ReadingBookList.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
+        /// <summary>
+        /// POST: /Account/LogOff
+        /// Used to logoff a user
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -404,6 +484,10 @@ namespace ReadingBookList.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Used to dispose objects
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
