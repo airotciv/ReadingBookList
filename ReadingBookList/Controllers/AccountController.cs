@@ -12,6 +12,10 @@ using ReadingBookList.Models;
 
 namespace ReadingBookList.Controllers
 {
+
+    /// <summary>
+    /// AccountController class provides the control for Account Page
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
