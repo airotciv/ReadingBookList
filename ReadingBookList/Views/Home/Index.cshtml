@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    var username = User.Identity.Name;
+}
+
+<div class="jumbotron">
+    <h1>Reading Book List</h1>
+    <p class="lead">Reading Book List is a free web application for avid book readers to add their collection of books.</p>
+ </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Please @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) or @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }).
+        </p>
+    </div>
+    
+</div>
