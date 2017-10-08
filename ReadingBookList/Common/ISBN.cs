@@ -7,7 +7,10 @@ using System.Xml;
 
 namespace ReadingBookList.Common
 {
-    static class ISBN
+    /// <summary>
+    /// ISBN is a static class provides the validation of ISBN
+    /// </summary>
+    public static class ISBN
     {
 
         // ********************************************************************
